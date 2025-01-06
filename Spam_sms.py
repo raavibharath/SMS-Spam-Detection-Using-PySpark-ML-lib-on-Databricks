@@ -1,10 +1,4 @@
 # Databricks notebook source
-# MAGIC %md
-# MAGIC # DS-610 Week 6 Homework: Machine Learning on Apache Spark
-# MAGIC  we will build a spam classifier on data stored on the Cloud.
-
-# COMMAND ----------
-
 from pyspark.ml import Pipeline
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.feature import CountVectorizer
@@ -15,14 +9,6 @@ from pyspark.context import SparkContext
 from pyspark.sql.session import SparkSession
 sc = SparkContext.getOrCreate()
 spark = SparkSession(sc)
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC ### Loading Data
-# MAGIC Reminder: It is highly recommended that you try this homework on Saint Peters' Databricks. Depending on whether you are running on the cloud or locally, adjust the data source accordingly below.
-
-# COMMAND ----------
 
 #Data source
 data_source = "/FileStore/shared_uploads/dlee5@saintpeters.edu/ds610/SMSSpamCollection"
@@ -45,9 +31,6 @@ df.printSchema()
 # MAGIC ## Part 1: Pipelines
 # MAGIC First we will declare `pipeline_stages` which will hold the complete steps for getting our dataset into the format for model training.
 
-# COMMAND ----------
-
-
 pipeline_stages = []
 
 # COMMAND ----------
@@ -58,8 +41,6 @@ pipeline_stages = []
 # MAGIC
 # MAGIC You may find the following useful:
 # MAGIC https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.StringIndexer.html
-
-# COMMAND ----------
 
 # Convert the "label_string" colun to 0/1 using StringIndexer.
 indexer = StringIndexer(inputCol="label_string", outputCol="label")
@@ -74,10 +55,7 @@ pipeline_stages.append(indexer)
 # MAGIC ```
 # MAGIC The quick brown fox jumps over the lazy dog -> [ "the", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog" ]
 # MAGIC  You may find the following useful:
-# MAGIC https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.Tokenizer.html
-
-# COMMAND ----------
-
+# MAGIC https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.Tokenizer.ht
 # Tokenize the "sms" column into the list of words under the column name "words" (inputCol="sms" and outputCol="words")
 # https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.Tokenizer.html
 tokenizer = Tokenizer(inputCol='sms',outputCol='words') 
